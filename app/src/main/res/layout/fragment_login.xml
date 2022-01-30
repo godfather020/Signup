@@ -8,8 +8,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
-        android:layout_width="393dp"
-        android:layout_height="342dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -20,7 +20,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="720dp">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/loginemail"
@@ -88,23 +88,23 @@
                 android:hint="Phone Number"
                 android:inputType="phone"
                 android:minHeight="48dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ortext"
-                tools:visibility="gone" />
+                app:layout_constraintTop_toBottomOf="@+id/ortext" />
 
             <Button
                 android:id="@+id/loginbuttonphone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:text="Login"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/loginPhoneNumber"
-                tools:visibility="gone" />
+                app:layout_constraintTop_toBottomOf="@+id/loginPhoneNumber" />
 
             <Button
                 android:id="@+id/loginwithphone"
@@ -133,11 +133,11 @@
                 android:inputType="phone"
                 android:maxLength="3"
                 android:minHeight="48dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/loginPhoneNumber"
                 app:layout_constraintHorizontal_bias="0.615"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ortext"
-                tools:visibility="gone" />
+                app:layout_constraintTop_toBottomOf="@+id/ortext" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,7 +16,8 @@ import android.widget.Button;
  */
 public class Login extends Fragment {
 
-    Button phonelogin;
+    Button phonelogin,loginphonebutton;
+    View phoneCC, phonenumber;
 
 
     @Override
@@ -25,7 +26,19 @@ public class Login extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
-        phonelogin = v.findViewById(R.id.loginPhoneNumber);
+        phonelogin = v.findViewById(R.id.loginwithphone);
+        loginphonebutton = v.findViewById(R.id.loginbuttonphone);
+        phoneCC = v.findViewById(R.id.loginCC);
+        phonenumber = v.findViewById(R.id.loginPhoneNumber);
+
+        phonelogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginphonebutton.setVisibility(View.VISIBLE);
+                phoneCC.setVisibility(View.VISIBLE);
+                phonenumber.setVisibility(View.VISIBLE);
+            }
+        });
 
         return v;
 
