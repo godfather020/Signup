@@ -1,5 +1,6 @@
 package com.example.signup;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class Register extends Fragment {
 
-    EditText name, username, email, pass, compass, cc, phone;
+    EditText name, username, email, pass, compass, cc, phonenum;
     Button register;
     Boolean isDataValid = false;
     FirebaseAuth fAuth;
@@ -40,7 +41,7 @@ public class Register extends Fragment {
         pass = v.findViewById(R.id.password);
         compass = v.findViewById(R.id.compass);
         cc = v.findViewById(R.id.CC);
-        phone = v.findViewById(R.id.phonenum);
+        phonenum = v.findViewById(R.id.phonenum);
 
         fAuth = FirebaseAuth.getInstance();
 
@@ -52,7 +53,7 @@ public class Register extends Fragment {
         validateData(pass);
         validateData(cc);
         validateData(compass);
-        validateData(phone);
+        validateData(phonenum);
 
         if(!pass.getText().toString().equals(compass.getText().toString())){
 
@@ -70,6 +71,9 @@ public class Register extends Fragment {
                 public void onSuccess(AuthResult authResult) {
                     Toast.makeText(getActivity(), "User Account is Created", Toast.LENGTH_SHORT).show();
                     //send User to verify Phone number
+                    Intent phone = new Intent(getActivity(), VerifyPhone.class);
+                    phone.putExtra("phone", "+"+cc.getText().toString()+phonenum.getText().toString());
+                    startActivity(phone);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
