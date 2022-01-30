@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * create an instance of this fragment.
  */
 public class Register extends Fragment {
-
+    public static final String TAG = "TAG";
     EditText name, username, email, pass, compass, cc, phonenum;
     Button register;
     Boolean isDataValid = false;
@@ -42,47 +43,53 @@ public class Register extends Fragment {
         compass = v.findViewById(R.id.compass);
         cc = v.findViewById(R.id.CC);
         phonenum = v.findViewById(R.id.phonenum);
-
         fAuth = FirebaseAuth.getInstance();
+        register = v.findViewById(R.id.register);
 
         //validating the data
 
-        validateData(name);
-        validateData(username);
-        validateData(email);
-        validateData(pass);
-        validateData(cc);
-        validateData(compass);
-        validateData(phonenum);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        if(!pass.getText().toString().equals(compass.getText().toString())){
+                validateData(name);
+                validateData(username);
+                validateData(email);
+                validateData(pass);
+                validateData(cc);
+                validateData(compass);
+                validateData(phonenum);
 
-            isDataValid = false;
-            compass.setError("Password Do Not Match");
-        }else {
+                if (!pass.getText().toString().equals(compass.getText().toString())) {
 
-            isDataValid = true;
-        }
+                    isDataValid = false;
+                    compass.setError("Password Do Not Match");
+                } else {
 
-        if (isDataValid){
-            //proceed with the registration
-            fAuth.createUserWithEmailAndPassword(email.getText().toString(), compass.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    Toast.makeText(getActivity(), "User Account is Created", Toast.LENGTH_SHORT).show();
-                    //send User to verify Phone number
-                    Intent phone = new Intent(getActivity(), VerifyPhone.class);
-                    phone.putExtra("phone", "+"+cc.getText().toString()+phonenum.getText().toString());
-                    startActivity(phone);
+                    isDataValid = true;
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
+                if (isDataValid) {
+                    //proceed with the registration
+                    fAuth.createUserWithEmailAndPassword(email.getText().toString(), compass.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            Toast.makeText(getActivity(), "User Account is Created", Toast.LENGTH_SHORT).show();
+                            //send User to verify Phone number
+                            Intent phone = new Intent(getActivity(), VerifyPhone.class);
+                            phone.putExtra("phone", "+"+cc.getText().toString()+phonenum.getText().toString());
+                            startActivity(phone);
+                            Log.d(TAG,"onSuccess"+cc.getText().toString()+phonenum.getText().toString());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
 
         return v;
     }

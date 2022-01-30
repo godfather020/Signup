@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class VerifyPhone extends AppCompatActivity {
@@ -109,7 +110,6 @@ public class VerifyPhone extends AppCompatActivity {
         };
 
         sendOTP(phone);
-
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,7 +141,7 @@ public class VerifyPhone extends AppCompatActivity {
 
     public void verifyAuthentication(PhoneAuthCredential credential){
 
-        firebaseAuth.getCurrentUser().linkWithCredential(credential).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        Objects.requireNonNull(firebaseAuth.getCurrentUser()).linkWithCredential(credential).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(VerifyPhone.this, "Account Created and Linked", Toast.LENGTH_SHORT).show();
